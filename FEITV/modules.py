@@ -1,3 +1,5 @@
+import ast
+
 def start():
     print("\n" \
     "-----------------------------------------Bem Vindo ao FEITV-----------------------------------------\n" \
@@ -25,27 +27,42 @@ def cadastro():
         nome = str(input("----> Digite seu nome: "))
         email = str(input("----> Digite seu email: "))
         senha = str(input("----> Digite sua senha: "))
-        usuario = {nome,
-                   email,
-                   senha}
+        usuario = {"nome" : nome,
+                   "email" : email,
+                   "senha" : senha}
         if nome.strip() and email.strip() and senha.strip():
-            arquivo = open ("user.txt", "a")
+            arquivo = open ("FEITV/user.txt", "a")
             arquivo.write (f"{usuario}\n")
-            arquivo.close ()
+            arquivo.close()
             print("Cadastro realizado!")
+            start()
             break
         else:
             print("Preencha todos os campos!\n")
         return usuario
 
+def lista_cadastro():
+    user = []
+    arquivo = open("FEITV/user.txt", "r")
+    for i in arquivo.readlines():
+        i = i.strip()
+        if i:
+            usuario = ast.literal_eval(i)
+            user.append(usuario)
+    arquivo.close()
+    print(user) #testar se tá retornando legal
+    return user
+
+
 # -----------LOGIN
+# transformar os users do cadastro de string para lista
 def login():
     while True:
         email = str(input("----> Digite seu email: "))
         senha = str(input("----> Digite sua senha: "))
+        users = lista_cadastro()
         if not email.strip() or not senha.strip():
             print("Preencha todos os campos!")
             continue
         
-
-cadastro()
+lista_cadastro()
