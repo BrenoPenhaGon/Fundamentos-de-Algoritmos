@@ -1,0 +1,4 @@
+{'Teste2', '123456789', 'teste2@gmail.com'}
+['teste3', 'teste3@gmail.com', '123']
+['1', '1', '8']
+{'13', 'teste3', 'teste3@gmail.com'}

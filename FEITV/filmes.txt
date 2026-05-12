@@ -1,0 +1,15 @@
+O Poderoso Chefão;A história da família mafiosa Corleone e sua ascensão no crime organizado.;9.2;Francis Ford Coppola
+Um Sonho de Liberdade;Um banqueiro injustamente preso desenvolve uma amizade e planeja sua liberdade.;9.3;Frank Darabont
+Batman: O Cavaleiro das Trevas;Batman enfrenta o Coringa, um criminoso que espalha o caos em Gotham.;9.0;Christopher Nolan
+Clube da Luta;Um homem insatisfeito cria um clube secreto que muda sua vida.;8.8;David Fincher
+Forrest Gump;A trajetória extraordinária de um homem simples ao longo de décadas da história americana.;8.8;Robert Zemeckis
+A Origem;Um grupo invade sonhos para implantar uma ideia na mente de um alvo.;8.8;Christopher Nolan
+Interestelar;Astronautas viajam por um buraco de minhoca em busca de um novo lar para a humanidade.;8.7;Christopher Nolan
+Matrix;Um programador descobre que a realidade é uma simulação controlada por máquinas.;8.7;Lana Wachowski e Lilly Wachowski
+Gladiador;Um general romano busca vingança após perder sua família e posição.;8.5;Ridley Scott
+Titanic;Um romance entre passageiros de classes sociais diferentes no famoso navio.;7.9;James Cameron
+Parasita;Uma família pobre se infiltra na casa de uma família rica.;8.5;Bong Joon-ho
+O Senhor dos Anéis: O Retorno do Rei;A batalha final pela Terra-média e a destruição do Um Anel.;9.0;Peter Jackson
+Vingadores: Ultimato;Os heróis restantes tentam desfazer os efeitos causados por Thanos.;8.4;Anthony Russo e Joe Russo
+Coringa;A transformação de um homem marginalizado no icônico vilão de Gotham.;8.4;Todd Phillips
+Whiplash;Um jovem baterista enfrenta o treinamento intenso de um professor exigente.;8.5;Damien Chazelle
