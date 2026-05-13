@@ -1,2 +1,4 @@
-{'nome': 'breno', 'email': 'breno@gmail.com', 'senha': 'teste1'}
+{'nome': 'breno', 'email': 'breno@gmail.com', 'senha': '12345'}
 {'nome': 'teste1', 'email': 'teste1@gmail.com', 'senha': 'teste1'}
+{'nome': 'teste2', 'email': 'teste2@gmail.com', 'senha': 'teste2'}
+{'nome': 'Carlos', 'email': 'carlosedubolinha@gmail.com', 'senha': 'skibiditoilet1945'}
