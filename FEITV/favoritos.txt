@@ -1,1 +1,3 @@
 {'email': 'breno@gmail.com', 'favoritos': ['O Poderoso ChefÃƒÆ’Ã‚Â£o']}
+{'email': 'gabi@gmail.com', 'favoritos': ['Vingadores: Ultimato']}
+{'email': 'joao@gmail.com', 'favoritos': ['Vingadores: Ultimato']}

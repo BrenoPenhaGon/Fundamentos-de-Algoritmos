@@ -41,7 +41,7 @@ def cadastro():
                    "senha" : senha}
         if nome.strip() and email.strip() and senha.strip():
             arquivo = open ("FEITV/user.txt", "a")
-            arquivo.write (f"{usuario}\n")
+            arquivo.write (f"\n{usuario}\n")
             arquivo.close()
             print("Cadastro realizado!")
             start()
