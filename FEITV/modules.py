@@ -28,7 +28,7 @@ def inicio():
         elif hudinicial == 2:
             login()
         elif hudinicial == 3:
-            break #por algum motivo essa bosta tá indo pro streaming, sla pq kkkkkkkkkkkkkkkkk (mas é só se eu for pra lá alguma vez (que bglh bizarro do krl))
+            break
 
 # -----------CADASTRO
 def cadastro():
@@ -49,19 +49,6 @@ def cadastro():
         else:
             print("Preencha todos os campos!\n")
         return usuario
-
-# carrega a lista de usuarios
-def lista_cadastro():
-    user = []
-    arquivo = open("FEITV/user.txt", "r")
-    for i in arquivo.readlines():
-        i = i.strip()
-        if i:
-            usuario = ast.literal_eval(i)
-            user.append(usuario)
-    arquivo.close()
-    # print(user) #testar se tá retornando legal
-    return user
 
 # -----------LOGIN
 def login():
@@ -105,7 +92,18 @@ def menu_filmes(user):
         else:
             print("Opção inválida.")
 
-# CARREGADOR
+# -----------CARREGADOR
+def lista_cadastro():
+    user = []
+    arquivo = open("FEITV/user.txt", "r")
+    for i in arquivo.readlines():
+        i = i.strip()
+        if i:
+            usuario = ast.literal_eval(i)
+            user.append(usuario)
+    arquivo.close()
+    return user
+
 def carregar_filmes():
     filmes = []
     arquivo = open("FEITV/filmes.txt", "r")
@@ -161,7 +159,7 @@ def listar_titulos(user):
 
     exibir_filme(filmes[escolha - 1], user)
 
-# -----------BUSCADOR 2000
+# -----------BUSCADOR 3000
 def buscar_filme(termo, user):
     filmes = carregar_filmes()
     resultados = [f for f in filmes if termo.lower().strip() in f["titulo"].lower()]
@@ -246,4 +244,8 @@ def salvar_favoritos(email, favoritos):
     for entrada in entradas:
         arquivo.write(f"{entrada}\n")
     arquivo.close()
+
+# ----------------------
+# RODAR
+# ----------------------
 start()
