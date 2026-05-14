@@ -1,0 +1,1 @@
+{'email': 'breno@gmail.com', 'favoritos': ['O Poderoso ChefÃƒÆ’Ã‚Â£o']}

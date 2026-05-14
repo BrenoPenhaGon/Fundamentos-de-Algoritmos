@@ -1,5 +1,9 @@
+# -----------IMPORTS
 import ast
+import os
 
+
+# -----------MAIN
 def start():
     print("\n" \
     "-----------------------------------------Bem Vindo ao FEITV-----------------------------------------\n" \
@@ -72,36 +76,39 @@ def login():
         for user in users:
             if user['email'] == email and user['senha'] == senha:
                 print(f"Login realizado! Bem-vindo, {user['nome']}!")
-                menu_filmes()
-                break
+                menu_filmes(user)
+                return
         else:
             ("Email ou senha incorretos. Tente Novamente. \n")
 
 # -----------STREAMING
-def menu_filmes():
+def menu_filmes(user):
     while True:
         hud_streaming = input(
             "\n--- Catálogo ---\n"
             "----> Digite 1 para ver todos os filmes\n"
             "----> Digite 2 para buscar filme por título\n"
-            "----> Digite 3 para voltar\n"
+            "----> Digite 3 para ver os favoritos\n" \
+            "----> Digite 4 para voltar\n"
             "----> "
         )
 
         if hud_streaming == "1":
-            listar_titulos()
+            listar_titulos(user)
         elif hud_streaming == "2":
             termo = input("----> Digite o título (ou parte dele): ")
-            buscar_filme(termo)
+            buscar_filme(termo, user)
         elif hud_streaming == "3":
+            listar_favoritos(user)
+        elif hud_streaming == "4":
             inicio()
         else:
             print("Opção inválida.")
 
-# carrega a lista de filmes
+# CARREGADOR
 def carregar_filmes():
     filmes = []
-    arquivo = open("FEITV/filmes.txt", "r", encoding="utf-8")
+    arquivo = open("FEITV/filmes.txt", "r")
     for linha in arquivo.readlines():
         linha = linha.strip()
         if linha:
@@ -116,34 +123,127 @@ def carregar_filmes():
     arquivo.close()
     return filmes
 
+def carregar_favoritos(email):
+    if not os.path.exists("FEITV/favoritos.txt"):
+        return []
+    arquivo = open("FEITV/favoritos.txt", "r")
+    linhas = arquivo.readlines()
+    arquivo.close()
+    for linha in linhas:
+        linha = linha.strip()
+        if linha:
+            entrada = ast.literal_eval(linha)
+            if entrada["email"] == email:
+                return entrada["favoritos"]
+    return []
+
 # -----------CATALOGO
-def listar_titulos():
+def listar_titulos(user):
     filmes = carregar_filmes()
     print("\n--- Filmes disponíveis ---")
     for i, filme in enumerate(filmes, start=1):
         print(f"{i}. {filme['titulo']} ({filme['nota']}) - Dir: {filme['diretor']}")
 
+    escolha = input("\n----> Digite o número do filme para ver detalhes (0 para voltar): ")
+
+    if not escolha.isdigit():
+        print("Opção inválida.")
+        return
+
+    escolha = int(escolha)
+
+    if escolha == 0:
+        return
+
+    if escolha < 1 or escolha > len(filmes):
+        print("Opção inválida.")
+        return
+
+    exibir_filme(filmes[escolha - 1], user)
+
 # -----------BUSCADOR 2000
-def buscar_filme(termo):
+def buscar_filme(termo, user):
     filmes = carregar_filmes()
-    termo = termo.lower().strip()
-    resultados = [f for f in filmes if termo in f["titulo"].lower()]
+    resultados = [f for f in filmes if termo.lower().strip() in f["titulo"].lower()]
 
     if not resultados:
         print("Nenhum filme encontrado.")
         return
 
     print(f"\n--- Resultados para '{termo}' ---")
-    for filme in resultados:
-        exibir_filme(filme)
+    for i, filme in enumerate(resultados, start=1):
+        print(f"{i}. {filme['titulo']} ({filme['nota']}) - Dir: {filme['diretor']}")
 
-def exibir_filme(filme):
+    escolha = input("\n----> Digite o número do filme para ver detalhes (0 para voltar): ")
+
+    if not escolha.isdigit():
+        print("Opção inválida.")
+        return
+
+    escolha = int(escolha)
+
+    if escolha == 0:
+        return
+
+    if escolha < 1 or escolha > len(resultados):
+        print("Opção inválida.")
+        return
+
+    exibir_filme(resultados[escolha - 1], user)
+
+
+# -----------EXIBIR FILMES
+def exibir_filme(filme, user):
+    favoritos = carregar_favoritos(user["email"])
+    ja_favoritado = filme["titulo"] in favoritos
+
     print(f"""
   Título    : {filme['titulo']}
   Descrição : {filme['descricao']}
   Nota      : {filme['nota']}
   Diretor   : {filme['diretor']}
+  Favorito  : {"Sim" if ja_favoritado else "Não"}
     """)
 
-        
+    if ja_favoritado:
+        op = input("----> Digite 1 para remover dos favoritos ou 0 para voltar: ")
+        if op == "1":
+            favoritos.remove(filme["titulo"])
+            salvar_favoritos(user["email"], favoritos)
+            print(f"'{filme['titulo']}' removido dos favoritos.")
+    else:
+        op = input("----> Digite 1 para adicionar aos favoritos ou 0 para voltar: ")
+        if op == "1":
+            favoritos.append(filme["titulo"])
+            salvar_favoritos(user["email"], favoritos)
+            print(f"'{filme['titulo']}' adicionado aos favoritos!")
+
+
+# -----------LISTA DE FAVORITOS
+def listar_favoritos(user):
+    favoritos = carregar_favoritos(user["email"])
+    print("\n--- Meus Favoritos ---")
+    if not favoritos:
+        print("Você ainda não tem filmes favoritos.")
+        return
+    for i, titulo in enumerate(favoritos, start=1):
+        print(f"{i}. {titulo}")
+
+def salvar_favoritos(email, favoritos):
+    entradas = []
+    if os.path.exists("FEITV/favoritos.txt"):
+        arquivo = open("FEITV/favoritos.txt", "r", encoding="utf-8")
+        for linha in arquivo.readlines():
+            linha = linha.strip()
+            if linha:
+                entrada = ast.literal_eval(linha)
+                if entrada["email"] != email:
+                    entradas.append(entrada)
+        arquivo.close()
+
+    entradas.append({"email": email, "favoritos": favoritos})
+    arquivo = open("FEITV/favoritos.txt", "w", encoding="utf-8")
+    for entrada in entradas:
+        arquivo.write(f"{entrada}\n")
+    arquivo.close()
 start()
