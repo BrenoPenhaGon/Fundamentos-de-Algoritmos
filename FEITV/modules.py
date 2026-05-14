@@ -104,6 +104,20 @@ def lista_cadastro():
     arquivo.close()
     return user
 
+def carregar_favoritos(email):
+    if not os.path.exists("FEITV/favoritos.txt"):
+        return []
+    arquivo = open("FEITV/favoritos.txt", "r")
+    linhas = arquivo.readlines()
+    arquivo.close()
+    for linha in linhas:
+        linha = linha.strip()
+        if linha:
+            entrada = ast.literal_eval(linha)
+            if entrada["email"] == email:
+                return entrada["favoritos"]
+    return []
+
 def carregar_filmes():
     filmes = []
     arquivo = open("FEITV/filmes.txt", "r")
@@ -120,20 +134,6 @@ def carregar_filmes():
             filmes.append(filme)
     arquivo.close()
     return filmes
-
-def carregar_favoritos(email):
-    if not os.path.exists("FEITV/favoritos.txt"):
-        return []
-    arquivo = open("FEITV/favoritos.txt", "r")
-    linhas = arquivo.readlines()
-    arquivo.close()
-    for linha in linhas:
-        linha = linha.strip()
-        if linha:
-            entrada = ast.literal_eval(linha)
-            if entrada["email"] == email:
-                return entrada["favoritos"]
-    return []
 
 # -----------CATALOGO
 def listar_titulos(user):
@@ -230,7 +230,7 @@ def listar_favoritos(user):
 def salvar_favoritos(email, favoritos):
     entradas = []
     if os.path.exists("FEITV/favoritos.txt"):
-        arquivo = open("FEITV/favoritos.txt", "r", encoding="utf-8")
+        arquivo = open("FEITV/favoritos.txt", "r")
         for linha in arquivo.readlines():
             linha = linha.strip()
             if linha:
@@ -240,7 +240,7 @@ def salvar_favoritos(email, favoritos):
         arquivo.close()
 
     entradas.append({"email": email, "favoritos": favoritos})
-    arquivo = open("FEITV/favoritos.txt", "w", encoding="utf-8")
+    arquivo = open("FEITV/favoritos.txt", "w")
     for entrada in entradas:
         arquivo.write(f"{entrada}\n")
     arquivo.close()
